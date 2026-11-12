@@ -28,17 +28,27 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ recommendations, error,
           <p className="text-slate-300 text-sm mb-4 leading-relaxed">{error}</p>
 
           {error.toLowerCase().includes('api key') && (
-            <div className="bg-slate-900/90 border border-slate-700 rounded-xl p-4 text-xs font-mono text-slate-300 space-y-2">
-              <p className="text-slate-400 font-sans font-medium">To run locally after downloading from GitHub:</p>
-              <div className="bg-slate-950 p-2.5 rounded text-cyan-400 select-all">
-                # 1. Create a .env file in the root directory<br />
-                # 2. Add your Google Gemini API key:<br />
-                GEMINI_API_KEY=your_gemini_api_key_here<br />
-                # 3. Restart your dev server:<br />
-                npm run dev
+            <div className="bg-slate-900/90 border border-slate-700 rounded-xl p-4 text-xs font-mono text-slate-300 space-y-3">
+              <div>
+                <p className="text-cyan-400 font-sans font-semibold mb-1">If hosted on Vercel:</p>
+                <ol className="list-decimal list-inside text-slate-300 font-sans space-y-1 pl-1">
+                  <li>Go to your project dashboard on <span className="text-white font-mono">vercel.com</span></li>
+                  <li>Click <span className="text-white font-semibold">Settings</span> &rarr; <span className="text-white font-semibold">Environment Variables</span></li>
+                  <li>Add Key: <span className="text-cyan-300 font-mono">GEMINI_API_KEY</span></li>
+                  <li>Add Value: <span className="text-slate-400 font-mono">(paste your Gemini API Key)</span></li>
+                  <li>Click <span className="text-white font-semibold">Deployments</span> &rarr; <span className="text-white font-semibold">Redeploy</span></li>
+                </ol>
               </div>
+
+              <div className="border-t border-slate-800 pt-2">
+                <p className="text-slate-400 font-sans font-medium mb-1">If running locally:</p>
+                <div className="bg-slate-950 p-2.5 rounded text-cyan-400 select-all font-mono">
+                  GEMINI_API_KEY=your_gemini_api_key_here
+                </div>
+              </div>
+
               <p className="text-slate-400 font-sans pt-1">
-                You can get a free API key at{' '}
+                Get a free API key at{' '}
                 <a
                   href="https://aistudio.google.com/app/apikey"
                   target="_blank"

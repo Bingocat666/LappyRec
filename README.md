@@ -2,6 +2,21 @@
 
 An intelligent full-stack quiz application that asks users about their computing needs and budget, then uses Google Gemini AI to analyze requirements and recommend top laptops matching their profile.
 
+## Deploying on Vercel
+
+If you deploy this project to Vercel from GitHub:
+
+1. Import the repository in [Vercel](https://vercel.com/new).
+2. Before clicking Deploy (or under **Project Settings** &rarr; **Environment Variables**):
+   - **Key**: `GEMINI_API_KEY`
+   - **Value**: Your Google Gemini API Key (get one free at [Google AI Studio](https://aistudio.google.com/app/apikey))
+   - Select Environments: **Production**, **Preview**, **Development**
+3. Deploy (or go to **Deployments** &rarr; **Redeploy** if already created).
+
+The project includes `vercel.json` and a serverless endpoint at `/api/recommendations` configured out-of-the-box.
+
+---
+
 ## Getting Started Locally (from GitHub)
 
 ### 1. Prerequisites
@@ -43,5 +58,5 @@ npm start
 
 ## Tech Stack
 - **Frontend**: React 19, TypeScript, Tailwind CSS, Vite
-- **Backend**: Node.js, Express, TSX
+- **Backend & Serverless**: Express, TSX, Vercel Serverless Functions
 - **AI SDK**: `@google/genai` (Google Gen AI TypeScript SDK)
