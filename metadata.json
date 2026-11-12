@@ -1,0 +1,8 @@
+{
+  "name": "Laptop Recommender AI",
+  "description": "An intelligent quiz that asks users a series of questions about their needs and preferences, then leverages AI to recommend the perfect laptops, sorted by match percentage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
