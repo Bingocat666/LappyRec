@@ -44,9 +44,9 @@ const App: React.FC = () => {
       const sortedResults = result.sort((a, b) => b.matchPercentage - a.matchPercentage);
       setRecommendations(sortedResults);
       setQuizState(QuizState.RESULTS);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      setError('Sorry, we encountered an issue generating recommendations. Please try again.');
+      setError(err?.message || 'Sorry, we encountered an issue generating recommendations. Please try again.');
       setQuizState(QuizState.RESULTS); // Go to results view to show the error
     }
   }, []);

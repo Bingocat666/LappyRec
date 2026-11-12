@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+dotenv.config();
+dotenv.config({ path: '.env.local' });
+
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -11,16 +15,21 @@ const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
 
-const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || '';
+const getApiKey = () =>
+  process.env.GEMINI_API_KEY ||
+  process.env.API_KEY ||
+  process.env.VITE_GEMINI_API_KEY ||
+  '';
 
-const ai = new GoogleGenAI({
-  apiKey: apiKey,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
+const getAiClient = () =>
+  new GoogleGenAI({
+    apiKey: getApiKey(),
+    httpOptions: {
+      headers: {
+        'User-Agent': 'aistudio-build',
+      },
     },
-  },
-});
+  });
 
 function formatErrorMessage(err: any): string {
   if (!err) return 'An unexpected error occurred.';
@@ -71,6 +80,7 @@ const recommendationSchema = {
 async function generateLaptopRecommendations(prompt: string) {
   const models = ['gemini-3.1-flash-lite', 'gemini-3.8-flash'];
   let lastError: any = null;
+  const ai = getAiClient();
 
   for (const model of models) {
     try {
@@ -110,10 +120,12 @@ app.post('/api/recommendations', async (req, res) => {
       return res.status(400).json({ error: 'Missing or invalid answers array.' });
     }
 
+    const apiKey = getApiKey();
     if (!apiKey) {
       console.warn('GEMINI_API_KEY is not configured on the server.');
       return res.status(500).json({
-        error: 'Gemini API key is not configured on the server. Please check Settings > Secrets.',
+        error:
+          'Gemini API key is not configured. When running locally from GitHub, create a .env file with GEMINI_API_KEY=your_key (see .env.example) and restart your server.',
       });
     }
 
